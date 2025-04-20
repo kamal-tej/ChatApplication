@@ -44,7 +44,9 @@ export default function UserChat({user, userName}) {
     }
 
     const handleSendMessage = () => {   
-        const socket = io("http://localhost:3000");
+        let socket;
+        if(location.hostname === "localhost") socket = io("http://localhost:3000");
+        else socket = io("https://kamalchatapplication.onrender.com/",{path: "/api/socket.io"});
         socket.emit("sendMessage", {message: newMessage, user, userName});
         console.log("new message is"+ newMessage);
     }

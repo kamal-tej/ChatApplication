@@ -5,28 +5,28 @@ const app = express();
 app.use(express.json());
 const route = express.Router();
 const cors = require("cors");
+const {roomId} = require("./constants");
 
 
 const server = http.createServer(app);
 const io = socket(server, {
     cors:{
         origin: "https://chatapplication-m8d6.onrender.com",
+        //origin: "http://localhost:5173",
     },
     path: "/api/socket.io"
 });
 
 io.on("connection", (socket)=>{
     socket.on("joinChat",({message, user, userName})=>{
-        const roomId = 25;
         console.log(userName, "joining room", roomId);
         socket.join(roomId);
     });
 
     socket.on("sendMessage",({message,user, userName})=>{
         console.log(message,user, userName);
-        const roomId = 25;
         console.log(userName," is sending ",message);
-        io.to(roomId).emit("messageReceived", {message, user})
+        io.to(roomId).emit("messageReceived", {message,userName,user})
     });
 
     socket.on("disconnect",()=>{});
@@ -34,6 +34,7 @@ io.on("connection", (socket)=>{
 
 app.use(cors({
     origin: "https://chatapplication-m8d6.onrender.com",
+    //origin: "http://localhost:5173",
     credentials: true,
 }));
 app.use(route);

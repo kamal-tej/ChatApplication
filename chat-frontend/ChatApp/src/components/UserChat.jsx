@@ -26,7 +26,7 @@ export default function UserChat({user, userName}) {
     useEffect(()=>{
         let socket;
         if(location.hostname === "localhost") socket = io("http://localhost:3000");
-        else socket = io("https://kamalchatapplication.onrender.com/",{path: "/api/socket.io"});
+        else socket = io("https://kamalchatapplication.onrender.com",{path: "/api/socket.io"});
         socket.emit("joinChat",{message: "message", user, userName});
         socket.on("messageReceived", ({message, user})=>{
             console.log("message received", message);
@@ -46,7 +46,7 @@ export default function UserChat({user, userName}) {
     const handleSendMessage = () => {   
         let socket;
         if(location.hostname === "localhost") socket = io("http://localhost:3000");
-        else socket = io("https://kamalchatapplication.onrender.com/",{path: "/api/socket.io"});
+        else socket = io("https://kamalchatapplication.onrender.com",{path: "/api/socket.io"});
         socket.emit("sendMessage", {message: newMessage, user, userName});
         console.log("new message is"+ newMessage);
     }

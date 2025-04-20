@@ -11,7 +11,8 @@ const server = http.createServer(app);
 const io = socket(server, {
     cors:{
         origin: "https://chatapplication-m8d6.onrender.com",
-    }
+    },
+    path: "/api/socket.io"
 });
 
 io.on("connection", (socket)=>{

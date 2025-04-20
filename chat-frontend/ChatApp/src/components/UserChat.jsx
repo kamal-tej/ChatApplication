@@ -24,7 +24,9 @@ export default function UserChat({user, userName}) {
     //     },[user])
     console.log(messages);
     useEffect(()=>{
-        const socket = io("http://localhost:3000");
+        let socket;
+        if(location.hostname === "localhost") socket = io("http://localhost:3000");
+        else socket = io("/",{path: "/api/socket.io"});
         socket.emit("joinChat",{message: "message", user, userName});
         socket.on("messageReceived", ({message, user})=>{
             console.log("message received", message);

@@ -10,7 +10,7 @@ const cors = require("cors");
 const server = http.createServer(app);
 const io = socket(server, {
     cors:{
-        origin: "http://localhost:5173",
+        origin: "https://chatapplication-m8d6.onrender.com",
     }
 });
 
@@ -32,7 +32,7 @@ io.on("connection", (socket)=>{
 })
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "https://chatapplication-m8d6.onrender.com",
     credentials: true,
 }));
 app.use(route);
